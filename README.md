@@ -254,6 +254,36 @@ review.
 
 Specific usage is documented in [`AI_USAGE.md`](AI_USAGE.md).
 
+## Pagination
+
+The scraper uses dynamic pagination for both target websites.
+
+- **Books to Scrape:** follows the available `Next` pagination link until the final page.
+- **Quotes to Scrape:** follows the available `Next` pagination link until no further page is available.
+- Page counts are **not hard-coded** into the scraping logic.
+- Each successfully fetched page is recorded in the execution logs.
+
+This allows the scraper to continue working if the number of available pages changes.
+
+## Assumptions
+
+The project makes the following assumptions:
+
+- The target websites are publicly accessible without authentication.
+- The required data is available in the websites' HTML responses.
+- The websites maintain the expected pagination structure.
+- Missing source-specific fields are represented as empty values in the common dataset schema.
+- The scraper is executed with a supported Python version and the dependencies listed in `requirements.txt`.
+- Network connectivity is available during scraping.
+
+## Known Limitations
+
+- The scraper depends on the current HTML structure of the target websites. Significant layout or selector changes may require updates to the source-specific scrapers.
+- The current implementation is designed specifically for the two assigned sources.
+- Each execution performs a full scrape rather than incremental scraping.
+- The pipeline does not currently provide checkpoint/resume functionality.
+- Execution time may vary depending on network conditions and target-server response times.
+
 ## Assignment Status
 
 -   [x] Books to Scrape scraping
